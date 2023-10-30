@@ -26,4 +26,4 @@ The following URL-QR-GEN has been designed, developed and tested by Mohammed Cho
 ## Licenses
 All Rights Reserved
 Created by Mohammed Ali Choglay
-version 1.0
+Version 1.0

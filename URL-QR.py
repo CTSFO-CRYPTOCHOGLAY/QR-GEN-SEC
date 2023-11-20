@@ -1,5 +1,6 @@
 #Imports for python script
 
+import argparse
 import sys 
 import urllib.request
 import os 
@@ -11,6 +12,13 @@ from colorama import Fore, Style
 from termcolor import colored
 import random
 import string
+
+# User Parser
+userParser  = argparse.ArgumentParser()
+userParser.add_argument("-f", "--function", help="[*] Select 1 of the 2 functions" and "python3 NIDS_main.py -f URLQR",  type=str, choices=[ "URLQR", "qrReader", "help"])
+args = userParser.parse_args()
+
+
 
 # Program functions 
 
@@ -69,6 +77,14 @@ def core():
         print(Fore.RED + "[!] You must enter a URL.")
         closingProgram()
 
+if __name__ == '__main__':
+    if args.function == "URLQR":
+        openingProgram()
+        userURL()
+    elif args.function == "qrReader":
+         print(Fore.RED + "[!] This feature is not available.")
+         closingProgram()
+    elif args.function == "help":
+         print(Fore.RED + "[!] This feature is not available.")
+         closingProgram()
 
-openingProgram()
-userURL()

@@ -1,7 +1,7 @@
 #Imports for python script
 
 import argparse
-from qrtools.qrtools import QR
+#from qrtools.qrtools import QR
 import sys 
 import urllib.request
 import os 
@@ -20,9 +20,7 @@ userParser.add_argument("-f", "--function", help="[*] Select 1 of the 2 function
 args = userParser.parse_args()
 
 
-
 # Program functions 
-
 def updateMessage():
     print(Fore.RED + "[!] This feature is not available.")
     closingProgram()
@@ -37,22 +35,26 @@ def help():
     print("[*] When promted for a file name you can specify one or you instantly press enter to auto genrate a file name. All files are stored in current working directory.")
     print("")
     print("Reading QR codes")
-    print("")
-    print("")
-    print("")
-    print("")
+    print("[*]")
+    print("[*]")
+    print("[*]")
+    print("[*]")
 
 def websiteStatus(url):
-    fullURL = "https://" + url 
-    status = urllib.request.urlopen(fullURL).getcode()
-    if status == 200:
-        core()   
-    else:
-        error = input("This website does not produce a 200 code. Do you still want to continue? (Y/N)")
-        if error.upper == "Y":
-            core()  
+    try:
+        fullURL = "https://" + url 
+        status = urllib.request.urlopen(fullURL).getcode()
+        if status == 200:
+            core()   
         else:
-            closingProgram()
+            error = input("This website does not produce a 200 code. Do you still want to continue? (Y/N)")
+            if error.upper == "Y":
+                core()  
+            else:
+                closingProgram()
+    except KeyboardInterrupt:
+        print(Fore.RED + "\n" + "[!] Operation interrupted by the user.")
+        closingProgram()
 
 def successfulMessage(passedFileName):
     print(Fore.GREEN +"[*] QR code successfully saveded as: " + passedFileName + ".png" + Style.RESET_ALL) 
@@ -66,8 +68,12 @@ def closingProgram():
 
 def userURL():
    global url 
-   url = input("[+] Enter URL: ")
-   websiteStatus(url)
+   try:
+        url = input("[+] Enter URL: ")
+        websiteStatus(url)
+   except KeyboardInterrupt:
+        print(Fore.RED + "\n" + "[!] Operation interrupted by the user.")
+        closingProgram()
 
 def readingQR():
     qrCodeFile = QR(filename=input(Fore.GREEN + "[*] Enter the path of the QR code with the file. " + Style.RESET_ALL))
@@ -75,30 +81,34 @@ def readingQR():
     print(qrCodeFile.decode)
 
 def core(): 
-    urlLength = len(url)
-    if urlLength > 4: 
-        print(Fore.GREEN + "[*] Creating QR code for:  " + url + Style.RESET_ALL)
+    try:
+        urlLength = len(url)
+        if urlLength > 4: 
+            print(Fore.GREEN + "[*] Creating QR code for:  " + url + Style.RESET_ALL)
 
-        genrate = pyqrcode.create(url)
+            genrate = pyqrcode.create(url)
 
-        print(Fore.YELLOW + "[!] For a random file name press enter with no input" + Style.RESET_ALL)
-        fileName = input("[+] Enter file name for QR code: ")
-        fileNameExt = fileName + ".png" 
-        if os.path.isfile(fileNameExt):
-            print(Fore.RED + "[!] File exists.")
-            closingProgram()
-        else:
-            fileNamelen  = len(fileName)
-            if fileNamelen > 0:
-                    genrate.png(fileNameExt, scale=5)
-                    successfulMessage(fileName)
+            print(Fore.YELLOW + "[!] For a random file name press enter with no input" + Style.RESET_ALL)
+            fileName = input("[+] Enter file name for QR code: ")
+            fileNameExt = fileName + ".png" 
+            if os.path.isfile(fileNameExt):
+                print(Fore.RED + "[!] File exists.")
+                closingProgram()
             else:
-                randFileName = ''.join(random.choices(string.ascii_uppercase, k=8))
-                genrate.png(randFileName + ".png", scale=5)
-                successfulMessage(randFileName)
-    else:
-        print(Fore.RED + "[!] You must enter a URL.")
-        closingProgram()
+                fileNamelen  = len(fileName)
+                if fileNamelen > 0:
+                        genrate.png(fileNameExt, scale=5)
+                        successfulMessage(fileName)
+                else:
+                    randFileName = ''.join(random.choices(string.ascii_uppercase, k=8))
+                    genrate.png(randFileName + ".png", scale=5)
+                    successfulMessage(randFileName)
+        else:
+            print(Fore.RED + "[!] You must enter a URL.")
+            closingProgram()
+    except KeyboardInterrupt:
+            print(Fore.RED + "\n" + "[!] Operation interrupted by the user.")
+            closingProgram()
 
 if __name__ == '__main__':
     if args.function == "URLQR":

@@ -17,7 +17,9 @@ To run the URL-QR-GEN script, ensure that Python 3 is being utilised or complica
 
 In order to run must be ran as SUDO or ROOT.
 ```bash
-python URL-QR.py
+sudo python3 NIDS.py -f URLQR
+sudo python3 NIDS.py -f x
+sudo python3 NIDS.py -f HELP
 ```
 
 ## Credits

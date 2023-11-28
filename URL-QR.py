@@ -4,6 +4,7 @@ import argparse
 #from qrtools.qrtools import QR
 import sys 
 import urllib.request
+from urllib.error import HTTPError
 import os 
 import pyfiglet
 import png
@@ -42,18 +43,28 @@ def help():
 
 def websiteStatus(url):
     try:
-        fullURL = "https://" + url 
-        status = urllib.request.urlopen(fullURL).getcode()
-        if status == 200:
-            core()   
-        else:
-            error = input("This website does not produce a 200 code. Do you still want to continue? (Y/N)")
-            if error.upper == "Y":
-                core()  
-            else:
-                closingProgram()
+        fullURL = "https://" + url
+        try:
+            status = urllib.request.urlopen(fullURL).getcode()
+            if status == 200:
+                core()
+        except HTTPError as e:
+            print(Fore.RED + f"[!] HTTP Error: {e.code}" + Style.RESET_ALL)
+            recall()
+        except Exception as e:
+            print(Fore.RED + f"[!] An unexpected error occurred: {e}" + Style.RESET_ALL)
+            recall()
     except KeyboardInterrupt:
         print(Fore.RED + "\n" + "[!] Operation interrupted by the user.")
+        closingProgram()
+
+def recall():
+    usersCall = input(Fore.RED + "[*] Do you want to retry or bypass this check? (Y/N/B): " + Style.RESET_ALL)
+    if usersCall == "Y":
+        userURL()
+    elif usersCall == "B":
+        core()
+    else:
         closingProgram()
 
 def successfulMessage(passedFileName):
@@ -115,7 +126,7 @@ if __name__ == '__main__':
         openingProgram()
         userURL()
     elif args.function == "qrReader":
-        readingQR
+        readingQR()
     elif args.function == "help":
          help()
 

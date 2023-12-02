@@ -5,7 +5,8 @@ The purpose of UR-QR-GEN is to be a command line tool that allows the generation
 
 ## Installation
 
-MUST BE AUTHENTICATED USER TO THIS REPO
+To downlaod the follwoing use the following commands below or downlaod zipped folder near the top right. 
+Cick on 'Code' the green box and then the second option press "Download ZIP"   
 
 ```bash
 git clone https://github.com/CTSFO-CRYPTOCHOGLAY/URL-QR-GEN
@@ -18,7 +19,7 @@ To run the URL-QR-GEN script, ensure that Python 3 is being utilised or complica
 In order to run must be ran as SUDO or ROOT.
 ```bash
 sudo python3 NIDS.py -f URLQR
-sudo python3 NIDS.py -f x
+sudo python3 NIDS.py -f qrReader
 sudo python3 NIDS.py -f HELP
 ```
 

@@ -5,7 +5,8 @@ The purpose of UR-QR-GEN is to be a command line tool that allows the generation
 
 ## Installation
 
-MUST BE AUTHENTICATED USER TO THIS REPO
+To downlaod the follwoing use the following commands below or downlaod zipped folder near the top right. 
+Cick on 'Code' the green box and then the second option press "Download ZIP"   
 
 ```bash
 git clone https://github.com/CTSFO-CRYPTOCHOGLAY/URL-QR-GEN

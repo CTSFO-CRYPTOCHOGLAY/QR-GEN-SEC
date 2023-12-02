@@ -59,13 +59,20 @@ def websiteStatus(url):
         closingProgram()
 
 def recall():
-    usersCall = input(Fore.RED + "[*] Do you want to retry or bypass this check? (Y/N/B): " + Style.RESET_ALL)
+    usersCall = input(Fore.RED + "[!] Do you want to retry or bypass this check? (Y/N/B): " + Style.RESET_ALL)
     if usersCall == "Y":
         userURL()
     elif usersCall == "B":
         core()
-    else:
+    elif usersCall == "N":
         closingProgram()
+    else:
+        print(Fore.RED + "[!] Wrong Input Please Try Again" + Style.RESET_ALL)
+        print(Fore.YELLOW + "[*] Y = Skip" + Style.RESET_ALL)
+        print(Fore.YELLOW +"[*] N = Close Program" + Style.RESET_ALL)
+        print(Fore.YELLOW +"[*] B = Bypass The URL Check" + Style.RESET_ALL)
+
+        recall()
 
 def successfulMessage(passedFileName):
     print(Fore.GREEN +"[*] QR code successfully saveded as: " + passedFileName + ".png" + Style.RESET_ALL) 

@@ -71,7 +71,6 @@ def recall():
         print(Fore.YELLOW + "[*] Y = Skip" + Style.RESET_ALL)
         print(Fore.YELLOW +"[*] N = Close Program" + Style.RESET_ALL)
         print(Fore.YELLOW +"[*] B = Bypass The URL Check" + Style.RESET_ALL)
-
         recall()
 
 def successfulMessage(passedFileName):
@@ -93,6 +92,17 @@ def userURL():
         print(Fore.RED + "\n" + "[!] Operation interrupted by the user.")
         closingProgram()
 
+def folderCheck():
+    try:
+        folderName = "QRCODEs"
+        # Check if the folder already exists
+        if not os.path.exists(folderName):
+            # Create the folder
+            os.makedirs(folderName)
+    except Exception as e:
+        print("[!] An error occurred while creating the folder: {e}")
+    
+
 def readingQR():
     qrCodeFile = QR(filename=input(Fore.GREEN + "[*] Enter the path of the QR code with the file. " + Style.RESET_ALL))
     qrCodeFile.decode
@@ -102,24 +112,25 @@ def core():
     try:
         urlLength = len(url)
         if urlLength > 4: 
+            folderCheck() 
             print(Fore.GREEN + "[*] Creating QR code for:  " + url + Style.RESET_ALL)
-
             genrate = pyqrcode.create(url)
-
             print(Fore.YELLOW + "[!] For a random file name press enter with no input" + Style.RESET_ALL)
             fileName = input("[+] Enter file name for QR code: ")
-            fileNameExt = fileName + ".png" 
-            if os.path.isfile(fileNameExt):
+            fileNameExt = fileName + ".png"
+            fullPath = os.getcwd() + "/QRCODEs/" + fileNameExt
+            if os.path.isfile(fullPath):
                 print(Fore.RED + "[!] File exists.")
                 closingProgram()
             else:
                 fileNamelen  = len(fileName)
                 if fileNamelen > 0:
-                        genrate.png(fileNameExt, scale=5)
+                        genrate.png(fullPath, scale=5)
                         successfulMessage(fileName)
                 else:
                     randFileName = ''.join(random.choices(string.ascii_uppercase, k=8))
-                    genrate.png(randFileName + ".png", scale=5)
+                    randFileNamePath = os.getcwd() + "/QRCODEs/" + randFileName
+                    genrate.png(randFileNamePath + ".png", scale=5)
                     successfulMessage(randFileName)
         else:
             print(Fore.RED + "[!] You must enter a URL.")

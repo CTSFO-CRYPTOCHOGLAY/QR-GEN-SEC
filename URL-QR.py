@@ -1,5 +1,7 @@
 #Imports for python script
-
+import vt
+import requests 
+import config 
 import argparse
 #from qrtools.qrtools import QR
 import sys 
@@ -15,13 +17,29 @@ from termcolor import colored
 import random
 import string
 
+
+
+def scan():
+    scanURL = input("URL TEST: ") 
+
+    payload = {
+    "apikey": config.VirusTotalApiKey,
+    "url": scanURL
+}       
+    headers = {
+    "accept": "application/json",
+    "Content-Type": "application/x-www-form-urlencoded"
+}
+    response = requests.post(config.totalVirusUrl, data=payload, headers=headers)
+    print(response.text)
+    
 # User Parser
 userParser  = argparse.ArgumentParser()
-userParser.add_argument("-f", "--function", help="[*] Select 1 of the 2 functions" and "python3 NIDS_main.py -f URLQR",  type=str, choices=[ "URLQR", "qrReader", "help"])
+userParser.add_argument("-f", "--function", help="[*] Select 1 of the 2 functions" and "python3 URL-QR.py -f URLQR",  type=str, choices=[ "URLQR", "qrReader", "help", "SECScan"])
 args = userParser.parse_args()
 
-
 # Program functions 
+
 def updateMessage():
     print(Fore.RED + "[!] This feature is not available.")
     closingProgram()
@@ -49,10 +67,10 @@ def websiteStatus(url):
             if status == 200:
                 core()
         except HTTPError as e:
-            print(Fore.RED + f"[!] HTTP Error: {e.code}" + Style.RESET_ALL)
+            print(Fore.RED + "[!] HTTP Error: {e.code}" + Style.RESET_ALL)
             recall()
         except Exception as e:
-            print(Fore.RED + f"[!] An unexpected error occurred: {e}" + Style.RESET_ALL)
+            print(Fore.RED + "[!] An unexpected error occurred: {e}" + Style.RESET_ALL)
             recall()
     except KeyboardInterrupt:
         print(Fore.RED + "\n" + "[!] Operation interrupted by the user.")
@@ -147,4 +165,5 @@ if __name__ == '__main__':
         readingQR()
     elif args.function == "help":
          help()
-
+    elif args.function == "SECScan":
+        scan()

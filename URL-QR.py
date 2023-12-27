@@ -136,7 +136,11 @@ def core():
             print(Fore.YELLOW + "[!] For a random file name press enter with no input" + Style.RESET_ALL)
             fileName = input("[+] Enter file name for QR code: ")
             fileNameExt = fileName + ".png"
-            fullPath = os.getcwd() + "/QRCODEs/" + fileNameExt
+            
+            savingPath = config.pathToSave if config.pathToSave else os.getcwd() + "/QRCODEs/"
+            fileNameExt = fileName + ".png"
+            fullPath = os.path.join(savingPath, fileNameExt)
+
             if os.path.isfile(fullPath):
                 print(Fore.RED + "[!] File exists.")
                 closingProgram()

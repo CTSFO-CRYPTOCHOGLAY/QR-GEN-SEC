@@ -1,5 +1,5 @@
 #Imports for python script
-import vt
+import json
 import requests 
 import config 
 import argparse
@@ -16,23 +16,7 @@ from colorama import Fore, Style
 from termcolor import colored
 import random
 import string
-
-
-
-def scan():
-    scanURL = input("URL TEST: ") 
-
-    payload = {
-    "apikey": config.VirusTotalApiKey,
-    "url": scanURL
-}       
-    headers = {
-    "accept": "application/json",
-    "Content-Type": "application/x-www-form-urlencoded"
-}
-    response = requests.post(config.totalVirusUrl, data=payload, headers=headers)
-    print(response.text)
-    
+   
 # User Parser
 userParser  = argparse.ArgumentParser()
 userParser.add_argument("-f", "--function", help="[*] Select 1 of the 2 functions" and "python3 URL-QR.py -f URLQR",  type=str, choices=[ "URLQR", "qrReader", "help", "SECScan"])
@@ -54,6 +38,11 @@ def help():
     print("[*] When promted for a file name you can specify one or you instantly press enter to auto genrate a file name. All files are stored in current working directory.")
     print("")
     print("Reading QR codes")
+    print("[*]")
+    print("[*]")
+    print("[*]")
+    print("[*]")
+    print("Security Scanning QR codes")
     print("[*]")
     print("[*]")
     print("[*]")
@@ -120,6 +109,58 @@ def folderCheck():
     except Exception as e:
         print("[!] An error occurred while creating the folder: {e}")
     
+def scan():
+    scanURL = input("URL (TEMP INPUT): ") 
+
+    payload = {
+    "apikey": config.VirusTotalApiKey,
+    "url": scanURL
+}       
+    headers = {
+    "accept": "application/json",
+    "Content-Type": "application/x-www-form-urlencoded"
+}
+    response = requests.post(config.totalVirusScanUrl, data=payload, headers=headers)
+    responseData = response.text
+    data = json.loads(responseData)
+    scanId = data["scan_id"]
+
+    params = { "apikey": config.VirusTotalApiKey, 'resource':scanId }
+    response = requests.get(config.totalVirusReportUrl, params=params)
+    Report = response.text
+
+    dataReport = json.loads(Report)
+    scanID = dataReport["scan_id"] 
+    resource = dataReport["resource"]
+    url = dataReport["url"]
+    responseCode = dataReport["response_code"]
+    scanDate = dataReport["scan_date"]
+    permaLink = dataReport["permalink"]
+    verboseMsg = dataReport["verbose_msg"]
+    filescanId = dataReport["filescan_id"]
+    positives = dataReport["positives"]
+    total = dataReport["total"]
+    scans = dataReport["scans"]
+
+    print("ScanID:", scanID)
+    print("Resource: ", resource)
+    print("Url:", url)
+    print("Response Code:", responseCode)
+    print("Scaned Date: ", scanDate)
+    print("Perma Link:", permaLink)
+    print("Verbose Msg:", verboseMsg)
+    print("Filescan Id:", filescanId)
+    print("Positives: ", positives)
+    print("Total:",  total)
+    scanedData = scans
+
+    for scanName, scanResult in scanedData.items():
+        detected = scanResult['detected']
+        result = scanResult['result']
+        print(f"Security vendor:  {scanName}:")
+        print(f"Detected: {detected}")
+        print(f"Result: {result}")
+        print("-" * 20) 
 
 def readingQR():
     qrCodeFile = QR(filename=input(Fore.GREEN + "[*] Enter the path of the QR code with the file. " + Style.RESET_ALL))

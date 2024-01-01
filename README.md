@@ -1,4 +1,4 @@
-# URL-QR-GEN
+# QR-GEN&SEC
 
 ## Description  
 The purpose of UR-QR-GEN is to be a command line tool that allows the generation of QR codes for URL links. This utility is to make it simple and easy to create QR codes linking to websites of your choice.

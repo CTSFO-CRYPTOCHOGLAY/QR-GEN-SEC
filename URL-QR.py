@@ -3,7 +3,8 @@ import json
 import requests 
 import config 
 import argparse
-#from qrtools.qrtools import QR
+import cv2
+from pyzbar.pyzbar import decode
 import sys 
 import urllib.request
 from urllib.error import HTTPError
@@ -11,7 +12,6 @@ import os
 import pyfiglet
 import png
 import pyqrcode
-import colorama
 from colorama import Fore, Style
 from termcolor import colored
 import random
@@ -19,7 +19,7 @@ import string
    
 # User Parser
 userParser  = argparse.ArgumentParser()
-userParser.add_argument("-f", "--function", help="[*] Select 1 of the 2 functions" and "python3 URL-QR.py -f URLQR",  type=str, choices=[ "URLQR", "qrReader", "help", "SECScan"])
+userParser.add_argument("-f", "--function", help="[*] Select 1 of the 2 functions" and "python3 URL-QR.py -f URLQR",  type=str, choices=[ "URLQR", "qrReader", "help",])
 args = userParser.parse_args()
 
 # Program functions 
@@ -109,8 +109,8 @@ def folderCheck():
     except Exception as e:
         print("[!] An error occurred while creating the folder: {e}")
     
-def scan():
-    scanURL = input("URL (TEMP INPUT): ") 
+def scan(URL):
+    scanURL = URL
 
     payload = {
     "apikey": config.VirusTotalApiKey,
@@ -150,7 +150,7 @@ def scan():
     print("Perma Link:", permaLink)
     print("Verbose Msg:", verboseMsg)
     print("Filescan Id:", filescanId)
-    print("Positives: ", positives)
+    print("Positives (Flagged By Vendor): ", positives)
     print("Total:",  total)
     scanedData = scans
 
@@ -160,12 +160,26 @@ def scan():
         print(f"Security vendor:  {scanName}:")
         print(f"Detected: {detected}")
         print(f"Result: {result}")
-        print("-" * 20) 
+        print("-" * 20)
+
+
+        
 
 def readingQR():
-    qrCodeFile = QR(filename=input(Fore.GREEN + "[*] Enter the path of the QR code with the file. " + Style.RESET_ALL))
-    qrCodeFile.decode
-    print(qrCodeFile.decode)
+    qrCodeFile = input(r"[*] Enter path of QR to be read: ")
+    image = cv2.imread(qrCodeFile)
+    decodedObjects = decode(image)
+    for obj in decodedObjects:
+        print(f"Data Contained In {obj.type}: {obj.data.decode('utf-8')}")
+        global data 
+        dataPulledfromQR = obj.data.decode('utf-8')
+
+    userInput = input("[*] Do you want to run the URL though VirusTotal API(Y/N)?: ")
+    if userInput == "Y":
+        scan(dataPulledfromQR)
+    elif userInput == "N":
+        print("[*] Exited")
+   
 
 def core(): 
     try:
@@ -210,5 +224,4 @@ if __name__ == '__main__':
         readingQR()
     elif args.function == "help":
          help()
-    elif args.function == "SECScan":
-        scan()
+    

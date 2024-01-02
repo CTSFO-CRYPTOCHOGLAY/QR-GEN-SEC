@@ -1,7 +1,11 @@
 # QR-GEN&SEC
 
 ## Description  
-The purpose of UR-QR-GEN is to be a command line tool that allows the generation of QR codes for URL links. This utility is to make it simple and easy to create QR codes linking to websites of your choice.
+As well as focusing on making QR codes, there’s also a significant focus on security. In recent years, threat actors and criminals have been utilising QR codes for malicious operations, such as using web pages to deliver malware or harvesting information like PII, sensitive data or financial data.
+
+The QR code reader developed employs a virus scan of the URL embedded in the QR code that has been statically decoded (so it will not be executed on the client side). This is powered by Virus Total (VT), so in order to get it working, an API key will be required by VT.
+
+It’s vital to know that not all URLs are flagged by vendors, so always remain cautious, especially when QR codes are sent randomly to you being told to execute it, which is usually put in situations of urgency, curiosity and time sensitivity. 
 
 ## Installation
 

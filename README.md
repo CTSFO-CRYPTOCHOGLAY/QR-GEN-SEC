@@ -17,6 +17,15 @@ git clone https://github.com/CTSFO-CRYPTOCHOGLAY/URL-QR-GEN
 cd URL-QR-GEN
 ```
 
+## Configuring the Configuration file
+
+The purpose of the configuration is a separate file where you can set your VT API key.
+
+Also, a path for saving QR codes can be set in this file instead of using the default path, which is as follows: 
+
+Default Path::/PWD//QRCODEs/filename.png
+PWD = (present working directory)
+
 ## Usage
 To run the URL-QR-GEN script, ensure that Python 3 is being utilised or complications could occur. 
 

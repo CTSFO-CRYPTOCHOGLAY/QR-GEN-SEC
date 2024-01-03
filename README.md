@@ -20,8 +20,26 @@ cd URL-QR-GEN
 ## Configuring the Configuration file
 
 The purpose of the configuration is a separate file where you can set your VT API key.Also, a path for saving QR codes can be set in this file instead of using the default path, which is as follows: 
-Default Path::/PWD//QRCODEs/filename.png
-PWD = (present working directory)
+
+* Default Path: C:\PWD\QRCODEs\filename.png
+* PWD = (present working directory)
+
+### Obtaining VT API Key  
+
+To obtain a  VT API key, head to https://www.virustotal.com/. Once on the web page, click sign up or sign in top right like shown below.
+
+![image](https://github.com/CTSFO-CRYPTOCHOGLAY/QR-GEN-SEC/assets/72378816/2fd8e889-8319-476d-8002-065293748cca) 
+
+Once logged in right click on your profile in the top right coner and select API Key.
+
+![image](https://github.com/CTSFO-CRYPTOCHOGLAY/QR-GEN-SEC/assets/72378816/5a62d0e1-7321-41bd-ba4a-c70db9890739) 
+
+Now, you can view your API key by pressing the eye icon. It's vital to know you should always keep your API key private for security reasons. 
+
+![image](https://github.com/CTSFO-CRYPTOCHOGLAY/QR-GEN-SEC/assets/72378816/02b5b3f1-6ac8-4da5-9411-e62e8aa38f9f)
+
+
+
 
 ## Usage
 To run the URL-QR-GEN script, ensure that Python 3 is being utilised or complications could occur. 

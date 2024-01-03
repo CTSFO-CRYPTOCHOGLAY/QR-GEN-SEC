@@ -19,10 +19,7 @@ cd URL-QR-GEN
 
 ## Configuring the Configuration file
 
-The purpose of the configuration is a separate file where you can set your VT API key.
-
-Also, a path for saving QR codes can be set in this file instead of using the default path, which is as follows: 
-
+The purpose of the configuration is a separate file where you can set your VT API key.Also, a path for saving QR codes can be set in this file instead of using the default path, which is as follows: 
 Default Path::/PWD//QRCODEs/filename.png
 PWD = (present working directory)
 

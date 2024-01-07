@@ -5,7 +5,10 @@ As well as focusing on making QR codes, there’s also a significant focus on se
 
 The QR code reader developed employs a virus scan of the URL embedded in the QR code that has been statically decoded (so it will not be executed on the client side). This is powered by Virus Total (VT), so in order to get it working, an API key will be required by VT.
 
-It’s vital to know that not all URLs are flagged by vendors, so always remain cautious, especially when QR codes are sent randomly to you being told to execute it, which is usually put in situations of urgency, curiosity and time sensitivity. 
+It’s vital to know that not all URLs are flagged by vendors, so always remain cautious, especially when QR codes are sent randomly to you, and you are being told to execute them by an unknown person. However, account compromises are on the rise where attackers will utilise real accounts they have taken over, so always be cautious and verify with the person through official channels. The situations are usually put in the following categories to increase the chance of attack these are as follow: 
+* urgency
+* Curiosity
+* time sensitivity
 
 ## Installation
 

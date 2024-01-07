@@ -130,6 +130,9 @@ def scan(URL):
     Report = response.text
 
     dataReport = json.loads(Report)
+
+    global scanID, resource, url, responseCode, scanDate, scanDate, permaLink, verboseMsg, filescanId, positives, total, scans
+
     scanID = dataReport["scan_id"] 
     resource = dataReport["resource"]
     url = dataReport["url"]
@@ -162,23 +165,24 @@ def scan(URL):
         print(f"Result: {result}")
         print("-" * 20)
 
-
-        
-
 def readingQR():
-    qrCodeFile = input(r"[*] Enter path of QR to be read: ")
-    image = cv2.imread(qrCodeFile)
-    decodedObjects = decode(image)
-    for obj in decodedObjects:
-        print(f"Data Contained In {obj.type}: {obj.data.decode('utf-8')}")
-        global data 
-        dataPulledfromQR = obj.data.decode('utf-8')
+    try:
+        qrCodeFile = input(r"[*] Enter path of QR to be read: ")
+        image = cv2.imread(qrCodeFile)
+        decodedObjects = decode(image)
+        for obj in decodedObjects:
+            print(f"Data Contained In {obj.type}: {obj.data.decode('utf-8')}")
+            global data 
+            dataPulledfromQR = obj.data.decode('utf-8')
 
-    userInput = input("[*] Do you want to run the URL though VirusTotal API(Y/N)?: ")
-    if userInput == "Y":
-        scan(dataPulledfromQR)
-    elif userInput == "N":
-        print("[*] Exited")
+        userInput = input("[*] Do you want to run the URL though VirusTotal API(Y/N)?: ")
+        if userInput == "Y":
+            scan(dataPulledfromQR)
+        elif userInput == "N":
+            print("[*] Exited")
+    except KeyboardInterrupt:
+            print(Fore.RED + "\n" + "[!] Operation interrupted by the user.")
+            closingProgram()
    
 
 def core(): 
@@ -218,7 +222,7 @@ def core():
 
 if __name__ == '__main__':
     if args.function == "URLQR":
-        openingProgram()
+        openingProgram() 
         userURL()
     elif args.function == "qrReader":
         readingQR()

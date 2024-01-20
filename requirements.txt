@@ -1,0 +1,9 @@
+requests
+opencv-python
+pyzbar
+urllib3
+pyfiglet
+pypng
+pyqrcode
+colorama
+termcolor

@@ -1,7 +1,6 @@
 #Imports for python script
 import json
 import requests 
-import config 
 import argparse
 import cv2
 from pyzbar.pyzbar import decode
@@ -16,6 +15,7 @@ from colorama import Fore, Style
 from termcolor import colored
 import random
 import string
+import config 
    
 # User Parser
 userParser  = argparse.ArgumentParser()
@@ -46,7 +46,10 @@ def help():
 
 def websiteStatus(url):
     try:
-        fullURL = "https://" + url
+        if "https://" in url:
+            fullURL = url
+        else:
+            fullURL = "https://" + url
         try:
             status = urllib.request.urlopen(fullURL).getcode()
             if status == 200:

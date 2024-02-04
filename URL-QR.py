@@ -164,6 +164,71 @@ def scan(URL):
         print(f"Result: {result}")
         print("-" * 20)
 
+
+
+def report(URL):
+    scanURL = URL
+
+    payload = {
+    "apikey": config.VirusTotalApiKey,
+    "url": scanURL
+}       
+    headers = {
+    "accept": "application/json",
+    "Content-Type": "application/x-www-form-urlencoded"
+}
+    response = requests.post(config.totalVirusScanUrl, data=payload, headers=headers)
+    responseData = response.text
+    data = json.loads(responseData)
+    scanId = data["scan_id"]
+
+    params = { "apikey": config.VirusTotalApiKey, 'resource':scanId }
+    response = requests.get(config.totalVirusReportUrl, params=params)
+    Report = response.text
+
+    dataReport = json.loads(Report)
+
+    global scanID, resource, url, responseCode, scanDate, scanDate, permaLink, verboseMsg, filescanId, positives, total, scans
+
+    scanID = dataReport["scan_id"] 
+    resource = dataReport["resource"]
+    url = dataReport["url"]
+    responseCode = dataReport["response_code"]
+    scanDate = dataReport["scan_date"]
+    permaLink = dataReport["permalink"]
+    verboseMsg = dataReport["verbose_msg"]
+    filescanId = dataReport["filescan_id"]
+    positives = dataReport["positives"]
+    total = dataReport["total"]
+    scans = dataReport["scans"]
+  
+
+    output = ""  # Initialize an empty string to store the output
+    output += f"ScanID: {scanID}\n"
+    output += f"Resource: {resource}\n"
+    output += f"URL: {url}\n"
+    output += f"Response Code: {responseCode}\n"
+    output += f"Scanned Date: {scanDate}\n"
+    output += f"Permalink: {permaLink}\n"
+    output += f"Verbose Message: {verboseMsg}\n"
+    output += f"Filescan ID: {filescanId}\n"
+    output += f"Positives (Flagged By Vendor): {positives}\n"
+    output += f"Total: {total}\n"
+
+    scanedData = scans
+    for scanName, scanResult in scanedData.items():
+        detected = scanResult['detected']
+        result = scanResult['result']
+        output += f"\nSecurity vendor: {scanName}:\n"
+        output += f"Detected: {detected}\n"
+        output += f"Result: {result}\n"
+        output += "-" * 20 + "\n"
+
+        with open("test.txt", "w") as file:
+                file.write(output)
+    
+    print("[*] Report genrated saved to: 'test.txt'")
+
 def readingQR():
     try:
         qrCodeFile = input(r"[*] Enter path of QR to be read: ")
@@ -179,6 +244,11 @@ def readingQR():
         if userInput == "Y":
             if apiLength > 30:
                 scan(dataPulledfromQR)
+                userInput = input("[*] Do you want to save the output to a .txt file (Y/N)?: ")
+                if userInput == "Y":
+                    report(dataPulledfromQR)
+                else:
+                    next
             else:
                 print(Fore.RED + "\n" + "[!] No API Key configured in config file." + Style.RESET_ALL)
                 print("[*] Exited")  

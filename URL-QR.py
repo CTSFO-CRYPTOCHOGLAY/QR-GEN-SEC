@@ -1,4 +1,5 @@
 #Imports for python script
+import tldextract  
 import json
 import requests 
 import argparse
@@ -15,7 +16,7 @@ from colorama import Fore, Style
 from termcolor import colored
 import random
 import string
-import config 
+import config
    
 # User Parser
 userParser  = argparse.ArgumentParser()
@@ -203,7 +204,7 @@ def report(URL):
     scans = dataReport["scans"]
   
 
-    output = ""  # Initialize an empty string to store the output
+    output = "" 
     output += f"ScanID: {scanID}\n"
     output += f"Resource: {resource}\n"
     output += f"URL: {url}\n"
@@ -214,7 +215,9 @@ def report(URL):
     output += f"Filescan ID: {filescanId}\n"
     output += f"Positives (Flagged By Vendor): {positives}\n"
     output += f"Total: {total}\n"
-
+    extractInfo = tldextract.extract(URL)
+    domain = extractInfo.domain
+    
     scanedData = scans
     for scanName, scanResult in scanedData.items():
         detected = scanResult['detected']
@@ -223,11 +226,11 @@ def report(URL):
         output += f"Detected: {detected}\n"
         output += f"Result: {result}\n"
         output += "-" * 20 + "\n"
-
-        with open("test.txt", "w") as file:
+        
+        with open(str(domain + "_Report"), "w") as file:
                 file.write(output)
     
-    print("[*] Report genrated saved to: 'test.txt'")
+    print("[*] Report genrated saved to: " + domain + "_Report" + ".txt")
 
 def readingQR():
     try:

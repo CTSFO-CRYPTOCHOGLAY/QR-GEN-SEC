@@ -19,6 +19,8 @@ Cick on 'Code' the green box and then the second option press "Download ZIP"
 git clone https://github.com/CTSFO-CRYPTOCHOGLAY/URL-QR-GEN
 cd URL-QR-GEN
 ```
+Pyzbar will also require Visual C++ Redistributable Packages for Visual Studio
+https://www.microsoft.com/en-US/download/details.aspx?id=40784
 
 ## Configuring the Configuration file
 
@@ -50,7 +52,7 @@ To run the URL-QR-GEN script, ensure that Python 3 is being utilised or complica
 ```bash
 sudo python3 URL-QR.py -f URLQR
 sudo python3 URL-QR.py -f qrReader
-sudo python3 NIDS.py -f help
+sudo python3 URL-QR.py -f help
 ```
 
 ## Credits

@@ -19,7 +19,9 @@ Cick on 'Code' the green box and then the second option press "Download ZIP"
 git clone https://github.com/CTSFO-CRYPTOCHOGLAY/URL-QR-GEN
 cd URL-QR-GEN
 ```
-Pyzbar will also require Visual C++ Redistributable Packages for Visual Studio
+
+The import Pyzbar will also require Visual C++ Redistributable Packages for Visual Studio
+
 https://www.microsoft.com/en-US/download/details.aspx?id=40784
 
 ## Configuring the Configuration file

@@ -31,19 +31,21 @@ def updateMessage():
 
 def help():
     openingProgram()
-    print("Program V1")
+    print("Program V1 by M Choglay")
+    print("")
     print("Making QR codes")
     print("[*] The purpose of this tool is read and develop QR codes without the hassle of using 3rd party applications. Privacy matters!!")
-    print("[*] In order to make QR codes use the URLQR option e.g. python3 NIDS_main.py -f URLQR")
+    print("[*] In order to make QR codes use the URLQR option e.g. python3 URL-QR.py -f URLQR")
     print("[*] The web url thats is passed has to be secure and online e.g.www.google.com")
     print("[*] When promted for a file name you can specify one or you instantly press enter to auto genrate a file name. All files are stored in current working directory.")
     print("")
     print("Reading & Security Scanning QR codes")
-    print("[*] In order to reads QR codes use the qrReader option e.g. python3 NIDS_main.py -f qrReader")
+    print("[*] In order to reads QR codes use the qrReader option e.g. python3 URL-QR.py -f qrReader")
     print("[*] Once started enter the path of the QR code that needs to be read.")
     print("[*] If the file is found and it contains a QR code it will read the QR code provied the info about it.")
     print("[*] If a URL is embbed within QR code you will have an option to run it aginst VT.")
     print("[*] Once scanned you will gain a report in the terminal if any postive matches where found.")
+    print("")
 
 def websiteStatus(url):
     try:

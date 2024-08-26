@@ -52,9 +52,9 @@ Now, you can view your API key by pressing the eye icon. It's vital to know you 
 To run the URL-QR-GEN script, ensure that Python 3 is being utilised or complications could occur. 
 
 ```bash
-sudo python3 URL-QR.py -f URLQR
-sudo python3 URL-QR.py -f qrReader
-sudo python3 URL-QR.py -f help
+python URL-QR.py -f URLQR
+python URL-QR.py -f qrReader
+python URL-QR.py -f help
 ```
 
 ## Credits

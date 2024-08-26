@@ -48,9 +48,9 @@ Now, you can view your API key by pressing the eye icon. It's vital to know you 
 To run the URL-QR-GEN script, ensure that Python 3 is being utilised or complications could occur. 
 
 ```bash
-sudo python3 NIDS.py -f URLQR
-sudo python3 NIDS.py -f qrReader
-sudo python3 NIDS.py -f help
+python NIDS.py -f URLQR
+python NIDS.py -f qrReader
+python NIDS.py -f help
 ```
 
 ## Credits

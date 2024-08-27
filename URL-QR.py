@@ -98,7 +98,7 @@ def userURL():
         url = input("[+] Enter URL: ")
         websiteStatus(url)
    except KeyboardInterrupt:
-        print(Fore.RED + "\n" + "[!] Operation interrupted by the user.")
+        print(Fore.RED + "\n" + "[!] Operation interrupted by the user." + Style.RESET_ALL)
         closingProgram()
 
 def folderCheck():
@@ -109,7 +109,7 @@ def folderCheck():
             # Create the folder
             os.makedirs(folderName)
     except Exception as e:
-        print("[!] An error occurred while creating the folder: {e}")
+        print(Fore.RED + "[!] An error occurred while creating the folder: {e}" + Style.RESET_ALL) 
     
 def scan(URL):
     scanURL = URL
@@ -232,7 +232,7 @@ def report(URL):
         with open(str(domain + "_Report"), "w") as file:
                 file.write(output)
     
-    print("[*] Report genrated saved to: " + domain + "_Report" + ".txt")
+    print(Fore.GREEN + "[*] Report genrated saved to: " + domain + "_Report" + ".txt" + Style.RESET_ALL)
 
 def readingQR():
     try:
@@ -253,14 +253,14 @@ def readingQR():
                 if userInput == "Y":
                     report(dataPulledfromQR)
                 else:
-                    next
+                    closingProgram()
             else:
                 print(Fore.RED + "\n" + "[!] No API Key configured in config file." + Style.RESET_ALL)
-                print("[*] Exited")  
+                print(Fore.RED + "[*] Exited")  
         elif userInput == "N":
-            print("[*] Exited")
+            print(Fore.GREEN + "[*] Exited")
     except KeyboardInterrupt:
-            print(Fore.RED + "\n" + "[!] Operation interrupted by the user.")
+            print(Fore.GREEN + "\n" + "[!] Operation interrupted by the user.")
             closingProgram()
    
 

@@ -6,9 +6,10 @@ As well as focusing on making QR codes, there’s also a significant focus on se
 The QR code reader developed employs a virus scan of the URL embedded in the QR code that has been statically decoded (so it will not be executed on the client side). This is powered by Virus Total (VT), so in order to get it working, an API key will be required by VT.
 
 It’s vital to know that not all URLs are flagged by vendors, so always remain cautious, especially when QR codes are sent randomly to you, and you are being told to execute them by an unknown person. However, account compromises are on the rise where attackers will utilise real accounts they have taken over, so always be cautious and verify with the person through official channels. The situations are usually put in the following categories to increase the chance of attack these are as follow: 
-* urgency
+
+* Urgency
 * Curiosity
-* time sensitivity
+* Time sensitivity
 
 ## Installation
 
@@ -18,6 +19,14 @@ Cick on 'Code' the green box and then the second option press "Download ZIP"
 ```bash
 git clone https://github.com/CTSFO-CRYPTOCHOGLAY/URL-QR-GEN
 cd URL-QR-GEN
+```
+
+The library 'Pyzbar' will also require Visual C++ Redistributable Packages for Visual Studio
+
+https://www.microsoft.com/en-US/download/details.aspx?id=40784
+
+```bash
+pip intall -r requirements.txt
 ```
 
 ## Configuring the Configuration file
@@ -48,9 +57,9 @@ Now, you can view your API key by pressing the eye icon. It's vital to know you 
 To run the URL-QR-GEN script, ensure that Python 3 is being utilised or complications could occur. 
 
 ```bash
-python NIDS.py -f URLQR
-python NIDS.py -f qrReader
-python NIDS.py -f help
+python URL-QR.py -f URLQR
+python URL-QR.py -f qrReader
+python URL-QR.py -f help
 ```
 
 ## Credits
